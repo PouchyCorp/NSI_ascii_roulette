@@ -13,15 +13,21 @@ class Game:
         print('reloading')
         self.gun[0] = 1
         random.shuffle(self.gun)
-        print(self.gun)
 
     def shootPlayer(self,choice : str):
         if 1 not in self.gun:
             self.reload()
         if self.gun[0] == 1:
+            self.gun[0] = 0
             print('paw')
         else:
             print('clic')
+
+        for i in range(1,6):
+            if self.gun[i] == 1:
+                self.gun[i-1], self.gun[i] = self.gun[i], self.gun[i-1]
+        
+        print(self.gun)
 
         if choice == "self":
             self.render()
@@ -29,7 +35,7 @@ class Game:
             self.playerTurn = False
             self.render()
 
-    def render(self,anim_index):
+    def render(self,anim_index = 1):
         print('player turn')
         #render pipeline
         if not self.playerTurn:

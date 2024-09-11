@@ -2,6 +2,7 @@ import random
 import csv
 from time import sleep
 import os
+import animation_sys
 
 
 class Game:
@@ -20,19 +21,25 @@ class Game:
     def useItem(self):
         pass
 
-    def shootPlayer(self,choice : str):
+    def shoot(self,choice : str, isPlayer : bool):
         if 1 not in self.gun:
             self.reload()
 
         if self.gun[0] == 1:
             self.gun[0] = 0
             if choice == 'self':
-                self.pvP -= self.gunDmg
+                if isPlayer:
+                    self.pvP -= self.gunDmg
+                else:
+                    self.pvD -= self.gunDmg
             else:
-                self.pvD -= self.gunDmg
-            print('paw')
+                if isPlayer:
+                    self.pvD -= self.gunDmg
+                else:
+                    self.pvP -= self.gunDmg
+            print('paw', isPlayer)
         else:
-            print('clic')
+            print('clic', isPlayer)
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -44,31 +51,31 @@ class Game:
         print(self.gun)
 
         if choice == "self":
+            self.playerTurn = True if isPlayer else False
             self.render()
         else:
-            self.playerTurn = False
+            self.playerTurn = False if isPlayer else True
             self.render()
 
     def render(self,anim_index = 0):
-        print('player turn \n dwqdqwdq \n dqwjbdqwjdb')
-        i = 1
-        while True:
-            os.system('cls')
-            print(i)
-            i+=1
-            sleep(0.1)
+#        for x in range(30):
+ #           os.system('cls')
+  #          print(anim_index)
+   #         sleep(0.1)
 
         #render pipeline
         if not self.playerTurn:
-            #bot ai
+            self.botAi()
             print("bot played")
-            self.playerTurn = True
-            self.render()
+    
+    def botAi(self):
+        rng = random.randint(0,1)
+        self.shoot('self' if rng == 1 else 'other', False)
         
 game = Game()     
         
 def shoot(choice):
-    game.shootPlayer(choice)
+    game.shoot(choice, True)
     return
 def item(choice):
     game.useItem(choice)

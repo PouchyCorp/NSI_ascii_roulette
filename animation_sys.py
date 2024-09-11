@@ -10,8 +10,7 @@ def anim():
     content = file.read()
     frames = content.split("---FRAME---")
 
-    for i, frame in enumerate(frames):
+    for frame in frames:
         print(frame.strip())
         time.sleep(delay)
         clear_console()
-anim()

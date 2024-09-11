@@ -1,5 +1,7 @@
 import random
 import csv
+from time import sleep
+import os
 
 
 class Game:
@@ -29,8 +31,15 @@ class Game:
             self.playerTurn = False
             self.render()
 
-    def render(self,anim_index):
-        print('player turn')
+    def render(self,anim_index = 0):
+        print('player turn \n dwqdqwdq \n dqwjbdqwjdb')
+        i = 1
+        while True:
+            os.system('cls')
+            print(i)
+            i+=1
+            sleep(0.1)
+
         #render pipeline
         if not self.playerTurn:
             #bot ai
@@ -42,6 +51,7 @@ game = Game()
         
 def shoot(choice):
     game.shootPlayer(choice)
+
         
 
 

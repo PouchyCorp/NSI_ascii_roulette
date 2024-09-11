@@ -1,5 +1,7 @@
 import random
 import csv
+from time import sleep
+import os
 
 
 class Game:
@@ -8,20 +10,32 @@ class Game:
         self.pvP = 3
         self.pvD = 3
         self.gun = [0,0,0,0,0,0]
+        self.gunDmg = 1
 
     def reload(self):
         print('reloading')
         self.gun[0] = 1
         random.shuffle(self.gun)
+    
+    def useItem(self):
+        pass
 
     def shootPlayer(self,choice : str):
         if 1 not in self.gun:
             self.reload()
+
         if self.gun[0] == 1:
             self.gun[0] = 0
+            if choice == 'self':
+                self.pvP -= self.gunDmg
+            else:
+                self.pvD -= self.gunDmg
             print('paw')
         else:
             print('clic')
+        
+        if self.gunDmg != 1:
+            self.gunDmg = 1
 
         for i in range(1,6):
             if self.gun[i] == 1:
@@ -35,8 +49,15 @@ class Game:
             self.playerTurn = False
             self.render()
 
-    def render(self,anim_index = 1):
-        print('player turn')
+    def render(self,anim_index = 0):
+        print('player turn \n dwqdqwdq \n dqwjbdqwjdb')
+        i = 1
+        while True:
+            os.system('cls')
+            print(i)
+            i+=1
+            sleep(0.1)
+
         #render pipeline
         if not self.playerTurn:
             #bot ai
@@ -48,6 +69,11 @@ game = Game()
         
 def shoot(choice):
     game.shootPlayer(choice)
+    return
+def item(choice):
+    game.useItem(choice)
+    return
+
         
 
 

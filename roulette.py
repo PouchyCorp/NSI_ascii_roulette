@@ -37,9 +37,9 @@ class Game:
                     self.pvD -= self.gunDmg
                 else:
                     self.pvP -= self.gunDmg
-            print('paw', isPlayer)
+            print('paw', isPlayer, choice)
         else:
-            print('clic', isPlayer)
+            print('clic', isPlayer,choice)
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -52,10 +52,10 @@ class Game:
 
         if choice == "self":
             self.playerTurn = True if isPlayer else False
-            self.render()
         else:
             self.playerTurn = False if isPlayer else True
-            self.render()
+        
+        self.render()
 
     def render(self,anim_index = 0):
 #        for x in range(30):
@@ -63,10 +63,8 @@ class Game:
   #          print(anim_index)
    #         sleep(0.1)
 
-        #render pipeline
         if not self.playerTurn:
             self.botAi()
-            print("bot played")
     
     def botAi(self):
         rng = random.randint(0,1)

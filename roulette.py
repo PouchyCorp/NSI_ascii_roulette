@@ -10,20 +10,32 @@ class Game:
         self.pvP = 3
         self.pvD = 3
         self.gun = [0,0,0,0,0,0]
+        self.gunDmg = 1
 
     def reload(self):
         print('reloading')
         self.gun[0] = 1
         random.shuffle(self.gun)
+    
+    def useItem(self):
+        pass
 
     def shootPlayer(self,choice : str):
         if 1 not in self.gun:
             self.reload()
+
         if self.gun[0] == 1:
             self.gun[0] = 0
+            if choice == 'self':
+                self.pvP -= self.gunDmg
+            else:
+                self.pvD -= self.gunDmg
             print('paw')
         else:
             print('clic')
+        
+        if self.gunDmg != 1:
+            self.gunDmg = 1
 
         for i in range(1,6):
             if self.gun[i] == 1:
@@ -57,6 +69,10 @@ game = Game()
         
 def shoot(choice):
     game.shootPlayer(choice)
+    return
+def item(choice):
+    game.useItem(choice)
+    return
 
         
 

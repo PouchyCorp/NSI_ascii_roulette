@@ -12,11 +12,13 @@ class Game:
         self.pvD = 3
         self.gun = [0,0,0,0,0,0]
         self.gunDmg = 1
+        self.txt = ""
 
     def reload(self):
-        print('reloading')
+        self.txt += "\nreloaded"
         self.gun[0] = 1
         random.shuffle(self.gun)
+        self.animPlayer('combine2')
     
     def useItem(self):
         pass
@@ -30,16 +32,21 @@ class Game:
             if choice == 'self':
                 if isPlayer:
                     self.pvP -= self.gunDmg
+                    self.animPlayer("placeholder 1")
                 else:
                     self.pvD -= self.gunDmg
+                    self.animPlayer("placeholder 2")
             else:
                 if isPlayer:
                     self.pvD -= self.gunDmg
+                    self.animPlayer('final')
                 else:
                     self.pvP -= self.gunDmg
-            print('paw', isPlayer, choice)
+                    self.animPlayer('placeholder 3')
+
+            self.txt += f"\npaw, {isPlayer}, {choice}"
         else:
-            print('clic', isPlayer,choice)
+            self.txt += f"\nclic, {isPlayer}, {choice}"
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -47,8 +54,6 @@ class Game:
         for i in range(1,6):
             if self.gun[i] == 1:
                 self.gun[i-1], self.gun[i] = self.gun[i], self.gun[i-1]
-        
-        print(self.gun)
 
         if choice == "self":
             self.playerTurn = True if isPlayer else False
@@ -56,15 +61,22 @@ class Game:
             self.playerTurn = False if isPlayer else True
         
         self.render()
+    
+    def animPlayer(self , anim_name : str):
+        animation_sys.anim(anim_name)
 
     def render(self,anim_index = 0):
-#        for x in range(30):
- #           os.system('cls')
-  #          print(anim_index)
-   #         sleep(0.1)
-
+        #animation_sys.clear_console()
+        #UI -> text
         if not self.playerTurn:
+            self.txt += '\nbot playing'
             self.botAi()
+        else:
+            self.txt += "\nplayer's turn"
+        
+        print(self.txt)
+        
+        self.txt = ""
     
     def botAi(self):
         rng = random.randint(0,1)

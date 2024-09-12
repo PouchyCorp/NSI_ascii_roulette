@@ -1,12 +1,12 @@
 import time
 import os
 
-delay = 0.03
+delay = 0.06
 def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def anim():
-    file = open("combine3.txt", "r", encoding="utf-8")
+def anim(anim_name : str):
+    file = open(f"{anim_name}.txt", "r", encoding="utf-8")
     content = file.read()
     frames = content.split("---FRAME---")
 

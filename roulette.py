@@ -10,6 +10,7 @@ class Game:
         self.playerTurn = True
         self.pvP = 3
         self.pvD = 3
+        self.item_player = ['sac de poudre','monocle']
         self.gun = [0,0,0,0,0,0]
         self.gunDmg = 1
         self.txt = ""
@@ -20,8 +21,25 @@ class Game:
         random.shuffle(self.gun)
         self.animPlayer('combine2')
     
-    def useItem(self):
-        pass
+    def useItem(self, choice : int):
+        if choice == 1:
+            if "bag of powder" in self.item_player:
+                self.gunDmg = 2
+                self.txt += "\nThe next shot fired (live or not) deals double dmg !"
+                self.item_player.remove("bag of powder")
+            else:
+                self.txt += "\nyou dont have this item !"
+        elif choice == 2:
+            if "monocle" in self.item_player:
+                self.txt += f"\nthere is a {'live round' if self.gun[0] == 1 else 'no bullet'} in the barrel"
+                self.item_player.remove("monocle")
+            else:
+                self.txt += "\nyou dont have this item !"
+        else:
+            self.txt += "\nthis is not an item !"
+        self.render()
+        
+
 
     def shoot(self,choice : str, isPlayer : bool):
         if 1 not in self.gun:
@@ -63,7 +81,8 @@ class Game:
         self.render()
     
     def animPlayer(self , anim_name : str):
-        animation_sys.anim(anim_name)
+        pass
+        #animation_sys.anim(anim_name)
 
     def render(self,anim_index = 0):
         #animation_sys.clear_console()
@@ -74,12 +93,12 @@ class Game:
         else:
             self.txt += "\nplayer's turn"
         
-        print(self.txt)
+        print(self.txt.strip())
         
         self.txt = ""
     
     def botAi(self):
-        rng = random.randint(0,1)
+        rng = random.randint(0,2)
         self.shoot('self' if rng == 1 else 'other', False)
         
 game = Game()     

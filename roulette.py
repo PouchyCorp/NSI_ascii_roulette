@@ -40,7 +40,6 @@ class Game:
 
 
     def shoot(self,choice : str, isPlayer : bool):
-        """testestest"""
         if 1 not in self.gun:
             self.reload()
 

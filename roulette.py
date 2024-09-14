@@ -19,7 +19,7 @@ class Game:
         self.txt += "\033[0mreloaded "
         self.gun[0] = 1
         random.shuffle(self.gun)
-        self.animPlayer('combine2')
+        self.animPlayer('reload')
     
     def useItem(self, choice : int):
         if choice == 1:

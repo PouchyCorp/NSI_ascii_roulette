@@ -14,7 +14,6 @@ class Game:
         self.txt = ""
 
     def reload(self):
-        """Reaload permet de recharger le revolver, elle prend en argumen 'self' (sois même), ainsi la partie peut débuter"""
         self.txt += "\033[0mreloaded "
         self.gun[0] = 1
         random.shuffle(self.gun)

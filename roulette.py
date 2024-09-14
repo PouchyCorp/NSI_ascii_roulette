@@ -1,5 +1,4 @@
 import random
-import csv
 from time import sleep
 import os
 import animation_sys

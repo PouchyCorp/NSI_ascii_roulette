@@ -16,7 +16,7 @@ class Game:
         self.txt = ""
 
     def reload(self):
-        self.txt += "\nreloaded"
+        self.txt += "\033[0mreloaded "
         self.gun[0] = 1
         random.shuffle(self.gun)
         self.animPlayer('combine2')
@@ -25,18 +25,18 @@ class Game:
         if choice == 1:
             if "bag of powder" in self.item_player:
                 self.gunDmg = 2
-                self.txt += "\nThe next shot fired (live or not) deals double dmg !"
+                self.txt += "\033[94mThe next shot fired (live or not) deals double dmg !"
                 self.item_player.remove("bag of powder")
             else:
-                self.txt += "\nyou dont have this item !"
+                self.txt += "\033[94myou dont have this item !"
         elif choice == 2:
             if "monocle" in self.item_player:
-                self.txt += f"\nthere is a {'live round' if self.gun[0] == 1 else 'no bullet'} in the barrel"
+                self.txt += f"\033[94mthere is a {'live round' if self.gun[0] == 1 else 'no bullet'} in the barrel"
                 self.item_player.remove("monocle")
             else:
-                self.txt += "\nyou dont have this item !"
+                self.txt += "\033[94myou dont have this item !"
         else:
-            self.txt += "\nthis is not an item !"
+            self.txt += "\033[94mthis is not an item !"
         self.render()
         
 
@@ -62,9 +62,9 @@ class Game:
                     self.pvP -= self.gunDmg
                     self.animPlayer('placeholder 3')
 
-            self.txt += f"\npaw, {isPlayer}, {choice}"
+            self.txt += f"paw, {isPlayer}, {choice}"
         else:
-            self.txt += f"\nclic, {isPlayer}, {choice}"
+            self.txt += f"clic, {isPlayer}, {choice}"
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -88,18 +88,20 @@ class Game:
         #animation_sys.clear_console()
         #UI -> text
         if not self.playerTurn:
-            self.txt += '\nbot playing'
+            self.txt += '\033[31mmafioso playing'
             self.botAi()
         else:
-            self.txt += "\nplayer's turn"
+            self.txt += "\033[94mplayer's turn"
         
-        print(self.txt.strip())
+        ui = animation_sys.get_ui(pvP=self.pvP,pvD=self.pvP,logTxt=self.txt.strip())
+        print(ui)
         
         self.txt = ""
     
     def botAi(self):
         rng = random.randint(0,2)
         self.shoot('self' if rng == 1 else 'other', False)
+
         
 game = Game()     
         

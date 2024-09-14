@@ -4,7 +4,6 @@ from time import sleep
 import os
 import animation_sys
 
-
 class Game:
     def __init__(self) -> None:
         self.playerTurn = True
@@ -50,21 +49,34 @@ class Game:
             if choice == 'self':
                 if isPlayer:
                     self.pvP -= self.gunDmg
-                    self.animPlayer("placeholder 1")
+                    animation_sys.anim("animselfshoot")
                 else:
                     self.pvD -= self.gunDmg
-                    self.animPlayer("placeholder 2")
+                    animation_sys.anim("animbotshoot")
             else:
                 if isPlayer:
                     self.pvD -= self.gunDmg
-                    self.animPlayer('final')
+                    animation_sys.anim('animselfshootbot')
                 else:
                     self.pvP -= self.gunDmg
-                    self.animPlayer('placeholder 3')
+                    animation_sys.anim('animbotshootself')
 
             self.txt += f"paw, {isPlayer}, {choice}"
         else:
-            self.txt += f"clic, {isPlayer}, {choice}"
+            if choice == 'self':
+                if isPlayer:
+                    self.pvP -= self.gunDmg
+                    animation_sys.anim("animselfpassiv")
+                else:
+                    self.pvD -= self.gunDmg
+                    animation_sys.anim("animbotpassiv")
+            else:
+                if isPlayer:
+                    self.pvD -= self.gunDmg
+                    animation_sys.anim('animselfpassivbot')
+                else:
+                    self.pvP -= self.gunDmg
+                    animation_sys.anim('animbotpassivself')
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -93,7 +105,7 @@ class Game:
         else:
             self.txt += "\033[94mplayer's turn"
         
-        ui = animation_sys.get_ui(pvP=self.pvP,pvD=self.pvP,logTxt=self.txt.strip())
+        ui = animation_sys.get_ui(pvP=self.pvP,pvD=self.pvD,logTxt=self.txt.strip())
         print(ui)
         
         self.txt = ""

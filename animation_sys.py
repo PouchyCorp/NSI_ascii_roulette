@@ -6,7 +6,7 @@ def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def anim(anim_name : str):
-    file = open(f"{anim_name}.txt", "r", encoding="utf-8")
+    file = open(f"./animations/{anim_name}.txt", "r", encoding="utf-8")
     content = file.read()
     frames = content.split("---FRAME---")
 
@@ -66,7 +66,7 @@ def get_ui(item1 = False
                     GYYObbbbbbbbbbbbbbbbbbYOOOOkAh555555FFFFFFFFFFppppp6F2w7c````    \\              `-'<2YbbbbbbbbbbbbbbbbbbbYkYb
                   GYYOYbbbbbbbbbbbbbbbbbbYq#####C-                                               -':,+)16ZbbbbbbbbbbbbbbbbbbbbbbOYYg
                   bYOYbbbbbbbbbbbbbbbbbbbbO%                                                 =/^+r17TySXYYbbbbbbbbbbbbbbbbbbbbbbbbYOYb
-                bYYkbbbbbbbbbbbbbbbbbbbbbbGzdbbbbbb______dwqsssssrrrrrrrrxii%    _\\\\\%sc*7gggEZkkkkkYbbbbbbbbbbbbbbbbbbbbbbbbbbbbkYYd
+                bYYkbbbbbbbbbbbbbbbbbbbbbbGzdbbbbbb______dwqsssssrrrrrrrrxii%    _\\\\\\sc*7gggEZkkkkkYbbbbbbbbbbbbbbbbbbbbbbbbbbbbkYYd
               ZbYObbbbbbbbbbbbbbbbbbbbbbbbbYkkkkkkkkkkkkkkkkYYYYYYYYYYYYYYbbYYPPPPGZGGGGGkkkkYbYYbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbYOYY
             bYYOYbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbYYYYbbYYYYYbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbkYbY 
           ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

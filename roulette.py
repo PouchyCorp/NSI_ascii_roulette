@@ -31,20 +31,20 @@ class Game:
         if choice == 1:
             if "bag of powder" in self.item_player:
                 self.gunDmg = 2
-                self.txt += "\033[94mThe next shot fired (live or not) deals double dmg !"
+                self.txt += "\033[94mThe next shot fired (live or not) deals double damage"
                 self.item_player.remove("bag of powder")
                 self.item1 = False
             else:
-                self.txt += "\033[94myou dont have this item !"
+                self.txt += "\033[94mYou dont have this item"
         elif choice == 2:
             if "monocle" in self.item_player:
-                self.txt += f"\033[94mthere is a {'live round' if self.gun[0] == 1 else 'no bullet'} in the barrel"
+                self.txt += f"\033[94mThere is a {'live round' if self.gun[0] == 1 else 'no bullet'} in the barrel"
                 self.item_player.remove("monocle")
                 self.item2 = False
             else:
-                self.txt += "\033[94myou dont have this item !"
+                self.txt += "\033[94mYou dont have this item"
         else:
-            self.txt += "\033[94mthis is not an item !"
+            self.txt += "\033[94mThis is not an item"
         self.cycle_manager()
         
 
@@ -60,28 +60,36 @@ class Game:
             if choice == 'self':
                 if isPlayer:
                     self.pvP -= self.gunDmg
+                    self.txt += f"\033[94mYou shoot yourself for {self.gunDmg} damage"
                     animation_sys.anim("animselfshoot")
                 else:
                     self.pvD -= self.gunDmg
+                    self.txt += f"\033[31mThe Mafioso shoots himself for {self.gunDmg} damage"
                     animation_sys.anim("animbotshoot")
             else:
                 if isPlayer:
                     self.pvD -= self.gunDmg
                     animation_sys.anim('animselfshootbot')
+                    self.txt += f"\033[94mYou shoot the Mafioso for {self.gunDmg} damage"
                 else:
                     self.pvP -= self.gunDmg
                     animation_sys.anim('animbotshootself')
+                    self.txt += f"\033[31mThe Mafioso shoots you for {self.gunDmg} damage"
         else:
             if choice == 'self':
                 if isPlayer:
                     animation_sys.anim("animselfpassiv")
+                    self.txt += f"\033[94mYou shoot yourself, but nothing happened"
                 else:
                     animation_sys.anim("animbotpassiv")
+                    self.txt += f"\033[31mThe Mafioso shoots himself, but nothing happened"
             else:
                 if isPlayer:
                     animation_sys.anim('animselfpassivbot')
+                    self.txt += f"\033[94mYou shoot theyourself, but nothing happened"
                 else:
                     animation_sys.anim('animbotpassivself')
+                    self.txt += f"\033[31mThe Mafioso shoots you, but nothing happened"
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -105,9 +113,13 @@ class Game:
         
 
     def cycle_manager(self):
+        if self.playerTurn:
+            if not self.txt: self.txt += "\033[94mYour turn"
+
         self.render_ui()
+
         if not self.playerTurn:
-            txt += "\033[31mMafioso is playing"
+            if not self.txt: self.txt += "\033[31mMafioso is playing"
             self.render_ui()
             self.botAi()
     
@@ -146,23 +158,48 @@ class Game:
         self.shoot('self' if rng == 1 else 'other', False)
         return
 
+
         
 game = Game()     
         
 def shoot(choice):
+    """Tire sur sois-meme, ou sur un ennemi.
+    Si vous tirez sur vous-meme, vous pouvez rejouer.
+    >>>shoot('self')
+    vous tirez sur vous-meme
+    >>>shoot('other')
+    vous tirez sur le mafieux
+    """
     game.shoot(choice, True)
     return
+
 def item(choice):
     game.useItem(choice)
     return
+
 def reload():
     game.reload(True) 
 
 
-        
+print("""
+        Roulette Sicilienne, est un jeu de stratégie en 1 vs 1.
+        En face de vous le "mafioso" votre énemie. Devant vous un pistolet chargé d'une seule balle : le but, ne pas mourir à tour de rôle.
 
-animation_sys.anim("intro")
-game.cycle_manager()
+        reload() : recharge le pistolet si une balle est utilisé ou bien si c'est le début de la partie
+        shoot('self') : se tirer dessus au risque de mourir mais de pouvoir rejouer
+        shoot('other') : tirer sur le 'mafioso'
+        item(1) : utiliser 'sac de poudre' double les dégats du prochain coup
+        item(2) : utiliser 'monocle' et connaitre le contenue de la prochaine chambre dans le barillet
+
+        Si une question vous vient en jouant utilsé help('fonction de votre choix')
+        
+        Faites start() pour commencer.
+        """)
+
+
+def start():
+    animation_sys.anim("intro")
+    game.cycle_manager()
 
 
 

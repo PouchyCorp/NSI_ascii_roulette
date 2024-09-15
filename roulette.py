@@ -7,13 +7,13 @@ class Game:
     def __init__(self) -> None:
         self.playerTurn = True
         self.pvP = 3
-        self.pvD = 3
+        self.pvD = 1
         self.item_player = ['bag of powder','monocle']
         self.item_mafioso = ['bag of powder','monocle']
         self.item1, self.item2 = True, True
         self.item1M, self.item2M = True, True
         self.gun = [0,0,0,0,0,0]
-        self.gunDmg = 1
+        self.gunDmg = 3
         self.txt = ""
 
     def reload(self, isPlayer : bool):
@@ -89,7 +89,7 @@ class Game:
                     self.txt += f"\033[94mYou shoot theyourself, but nothing happened"
                 else:
                     animation_sys.anim('animbotpassivself')
-                    self.txt += f"\033[31mThe Mafioso shoots you, but nothing happened"
+                    self.txt += f"\033[31mThe Mafioso shoots you, but nothing happened.\033[94mYour turn"
         
         if self.gunDmg != 1:
             self.gunDmg = 1
@@ -110,9 +110,13 @@ class Game:
         ui = animation_sys.get_ui(pvP=self.pvP,pvD=self.pvD,logTxt=self.txt.strip(),item1=self.item1, item2=self.item2, item1M=self.item1M, item2M = self.item2M)
         print(ui)
         self.txt = ""
-        
 
     def cycle_manager(self):
+        if self.pvD == 0:
+            print(animation_sys.GAME_OVER)
+        if self.pvP == 0:
+            print(animation_sys.VIVTORY)
+
         if self.playerTurn:
             if not self.txt: self.txt += "\033[94mYour turn"
 

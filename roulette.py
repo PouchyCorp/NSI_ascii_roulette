@@ -13,7 +13,7 @@ class Game:
         self.item1, self.item2 = True, True
         self.item1M, self.item2M = True, True
         self.gun = [0,0,0,0,0,0]
-        self.gunDmg = 3
+        self.gunDmg = 1
         self.txt = ""
 
     def reload(self, isPlayer : bool):
@@ -112,10 +112,14 @@ class Game:
         self.txt = ""
 
     def cycle_manager(self):
-        if self.pvD == 0:
-            print(animation_sys.GAME_OVER)
         if self.pvP == 0:
+            animation_sys.clear_console()
+            print(animation_sys.GAME_OVER)
+            return
+        if self.pvD == 0:
+            animation_sys.clear_console()
             print(animation_sys.VIVTORY)
+            return
 
         if self.playerTurn:
             if not self.txt: self.txt += "\033[94mYour turn"
@@ -178,10 +182,15 @@ def shoot(choice):
     return
 
 def item(choice):
+    """Choisissez un item entre item(1) : 'sac de poudre', qui augmente les dégâts du prochain coup à 2, 
+        ou bien item(2) : 'monocle', qui permet de savoir si le prochain coup est chargé ou non.
+        /!\ utilisable une seule fois par partie"""
     game.useItem(choice)
     return
 
 def reload():
+    """Pour recharger l'arme après qu'un coup soit parti ou bien au début de la partie, utilisez -> reload()."""
+
     game.reload(True) 
 
 

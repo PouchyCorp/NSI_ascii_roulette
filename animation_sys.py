@@ -41,9 +41,9 @@ def get_ui(item1 = False
           ┃                ┃                  \033[31m               _^)=:,,:_:/illlllllc>='',;,,">^_\033[0m                          ┃                ┃
           ┃  PV : \033[94m{pvPtxtBetter}\033[0m┃                  \033[31m              ''<)>v<|/^_-'+vlllc>^_-:="))i<%  :\033[0m                         ┃  PV : \033[31m{pvDtxtBetter}\033[0m┃
           ┃                ┃                  \033[31m             `_,xxlc\033[90m┃ ┃\033[31mlc<'-_+%ll>;--^il\033[90m┃ ┃\033[31mlxv'__\033[0m                        ┃                ┃
-          ┃  {var if item1 else ''}bag of powder\033[0m ┃                  \033[31m             __:%) \033[90m┃   ┃\033[31m</+=vrl)||/|i""\033[90m┃   ┃\033[31mii'__\033[0m                        ┃  {var if item1M else ''}bag of powder\033[0m ┃
+          ┃  {var if not item1 else ''}bag of powder\033[0m ┃                  \033[31m             __:%) \033[90m┃   ┃\033[31m</+=vrl)||/|i""\033[90m┃   ┃\033[31mii'__\033[0m                        ┃  {var if not item1M else ''}bag of powder\033[0m ┃
           ┃                ┃                  \033[31m             ___^>x%\033[90m┃ ┃\033[31mxlrc+^+=^vrlli=="\033[90m┃ ┃\033[31m%<:___\033[0m                        ┃                ┃
-          ┃  {var if item2 else ''}monocle\033[0m       ┃                  \033[31m              ___'^)>vlrrllc;-'__<lllrrci>|;____\033[0m                         ┃  {var if item2M else ''}monocle\033[0m       ┃
+          ┃  {var if not item2 else ''}monocle\033[0m       ┃                  \033[31m              ___'^)>vlrrllc;-'__<lllrrci>|;____\033[0m                         ┃  {var if not item2M else ''}monocle\033[0m       ┃
           ┃                ┃                  \033[31m               _____'^><)/^;^>xv";^+|<)):'_____\033[0m                          ┃                ┃
           ┃                ┃                  \033[31m                ^________-'/">l% );--________\033[0m                            ┃                ┃
           ┗━━━━━━━━━━━━━━━━┛                  \033[31m                  ________':::=,:::_________\033[0m                             ┗━━━━━━━━━━━━━━━━┛

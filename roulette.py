@@ -7,7 +7,7 @@ class Game:
     def __init__(self) -> None:
         self.playerTurn = True
         self.pvP = 3
-        self.pvD = 1
+        self.pvD = 3
         self.item_player = ['bag of powder','monocle']
         self.item_mafioso = ['bag of powder','monocle']
         self.item1, self.item2 = True, True
@@ -112,17 +112,17 @@ class Game:
         self.txt = ""
 
     def cycle_manager(self):
-        if self.pvP == 0:
+        if self.pvP <= 0:
             animation_sys.clear_console()
             print(animation_sys.GAME_OVER)
             return
-        if self.pvD == 0:
+        if self.pvD <= 0:
             animation_sys.clear_console()
             print(animation_sys.VIVTORY)
             return
 
         if self.playerTurn:
-            if not self.txt: self.txt += "\033[94mYour turn"
+            if not self.txt: self.txt += "\033[94m Your turn"
 
         self.render_ui()
 
@@ -157,6 +157,10 @@ class Game:
                 self.txt += "\033[31mMafioso used monocle"
                 self.item_mafioso.remove('monocle')
                 self.item2M = False
+
+                self.render_ui()
+                sleep(3)
+
                 if self.gun[0] == 1:
                     self.shoot('other', False)
                 else:
@@ -164,12 +168,31 @@ class Game:
                 return
 
         self.shoot('self' if rng == 1 else 'other', False)
-        return
-
-
+        return    
         
-game = Game()     
+print("""
+        Roulette Sicilienne, est un jeu de stratégie en 1 vs 1 inspiré de la roulette russe.
+        En face de vous le "mafioso" votre énemie. Devant vous un revolver chargé d'une seule balle au hasard, vous vous tirez dessus à tour de rôle avec un twist
+        Le but: ne pas mourir.
+
+        reload() : recharge le pistolet si une balle est utilisé ou bien si c'est le début de la partie
+        shoot('self') : se tirer dessus au risque de mourir mais de pouvoir rejouer
+        shoot('other') : tirer sur le 'mafioso'
+        item(1) : utiliser 'sac de poudre' double les dégats du prochain coup
+        item(2) : utiliser 'monocle' et connaitre le contenue de la prochaine chambre dans le barillet
+
+        Si une question vous vient en jouant utilsé help('fonction de votre choix')
         
+        Faites start() pour commencer.
+        """)
+
+game = Game()
+
+def start():
+    game = Game() 
+    animation_sys.anim("intro")
+    game.cycle_manager()
+
 def shoot(choice):
     """Tire sur sois-meme, ou sur un ennemi.
     Si vous tirez sur vous-meme, vous pouvez rejouer.
@@ -192,29 +215,6 @@ def reload():
     """Pour recharger l'arme après qu'un coup soit parti ou bien au début de la partie, utilisez -> reload()."""
 
     game.reload(True) 
-
-
-print("""
-        Roulette Sicilienne, est un jeu de stratégie en 1 vs 1.
-        En face de vous le "mafioso" votre énemie. Devant vous un pistolet chargé d'une seule balle : le but, ne pas mourir à tour de rôle.
-
-        reload() : recharge le pistolet si une balle est utilisé ou bien si c'est le début de la partie
-        shoot('self') : se tirer dessus au risque de mourir mais de pouvoir rejouer
-        shoot('other') : tirer sur le 'mafioso'
-        item(1) : utiliser 'sac de poudre' double les dégats du prochain coup
-        item(2) : utiliser 'monocle' et connaitre le contenue de la prochaine chambre dans le barillet
-
-        Si une question vous vient en jouant utilsé help('fonction de votre choix')
-        
-        Faites start() pour commencer.
-        """)
-
-
-def start():
-    animation_sys.anim("intro")
-    game.cycle_manager()
-
-
 
 
 
